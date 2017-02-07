@@ -39,3 +39,9 @@ Copyright (C) bitfire web engineering (Ricki Hirner, Bernhard Stockmann).
 This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome
 to redistribute it under the conditions of the [GNU GPL v3](LICENSE).
 
+
+## Privacy policy
+
+NoPhoneSpam stores the blocked numbers in a local database. No information
+is transmitted to anywhere in the Internet. There's no tracking and there are no ads.
+
