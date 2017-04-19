@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoPhoneSpam</string>
+
+    <!-- BlacklistActivity -->
+    <string name="blacklist_block_hidden_numbers">Bloquer les numéros cachés</string>
+    <string name="blacklist_show_notifications">Montrer les notifications</string>
+    <string name="blacklist_about">À propos de NoPhoneSpam</string>
+    <string name="blacklist_permissions_required">NoPhoneSpam n\'a pas les permissions nécessaires pour fonctionner.</string>
+    <string name="blacklist_request_permissions">Demander les permissions</string>
+    <plurals name="blacklist_call_details">
+        <item quantity="one">Appel à %2$s</item>
+        <item quantity="other">%1$d appels, dernier le : %2$s</item>
+    </plurals>
+    <string name="blacklist_import">Importer la liste noire</string>
+    <string name="blacklist_export">Exporter la liste noire</string>
+    <string name="blacklist_exported_to">Exporté vers</string>
+
+    <!-- EditActivity -->
+    <string name="edit_add_number">Ajouter un numéro</string>
+    <string name="edit_edit_number">Modifier le numéro</string>
+    <string name="edit_save">Enregistrer</string>
+    <string name="edit_cancel">Annuler</string>
+    <string name="edit_delete">Supprimer</string>
+    <string name="edit_name">Nom</string>
+    <string name="edit_name_hint">Spammeur casse-pieds</string>
+    <string name="edit_number">Numéro</string>
+    <string name="edit_number_hint">+33-1-23-45-67-89</string>
+    <string name="edit_number_hints">Entrez le numéro dans le format +CODE-PAYS. Utilisez \"*\" comme joker pour zéro ou plus chiffres, et \"#\" pour exactement un chiffre.</string>
+    <string name="edit_must_not_be_empty">ne doit pas être vide</string>
+    <string name="edit_changes_saved">Changements enregistrés</string>
+
+    <!-- CallReceiver -->
+    <string name="receiver_notify_call_rejected">Appel rejeté</string>
+    <string name="receiver_notify_private_number">Numéro privé</string>
+
+</resources>
