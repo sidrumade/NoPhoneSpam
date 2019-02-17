@@ -41,7 +41,7 @@ public class BlacklistFile extends File {
             }
             fin.close();
             return numbers;
-        } catch (IOException _) {
+        } catch (IOException exception) {
             return numbers;
         }
     }
@@ -59,7 +59,7 @@ public class BlacklistFile extends File {
             return true;
 
         // if we don't have permission, bail immediately; failure message is already displayed
-        } catch (IOException _) {
+        } catch (IOException exception) {
             return false;
         }
     }

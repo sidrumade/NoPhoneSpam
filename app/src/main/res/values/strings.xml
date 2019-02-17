@@ -35,5 +35,6 @@
     <string name="receiver_notify_call_rejected">Call rejected</string>
     <string name="receiver_notify_private_number">Private number</string>
     <string name="receiver_notify_unknown_caller">Unknown caller</string>
+    <string name="call_blocking_unsupported">Can\'t block calls in this Android version</string>
 
 </resources>

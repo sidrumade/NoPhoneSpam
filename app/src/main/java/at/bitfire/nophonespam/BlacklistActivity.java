@@ -116,13 +116,17 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
             }
         });
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)             != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)       != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)       != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)          != PackageManager.PERMISSION_GRANTED)
+
             ActivityCompat.requestPermissions(this, new String[] {
                     Manifest.permission.CALL_PHONE,
                     Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_CALL_LOG
             }, 0);
 
         getLoaderManager().initLoader(0, null, this);
@@ -204,6 +208,7 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
 
     public void onWhitelist(MenuItem item) {
         settings.whitelist(!item.isChecked());
+    }
 
     public void onImportBlacklist(MenuItem item) {
         showDialog(DIALOG_LOAD_FILE);

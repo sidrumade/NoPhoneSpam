@@ -9,6 +9,7 @@
 package at.bitfire.nophonespam;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -18,21 +19,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Environment;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.text.TextUtilsCompat;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.internal.telephony.ITelephony;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 import at.bitfire.nophonespam.model.DbHelper;
@@ -48,6 +45,12 @@ public class CallReceiver extends BroadcastReceiver {
         if (TelephonyManager.ACTION_PHONE_STATE_CHANGED.equals(intent.getAction()) &&
                 intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+
+            /* swy: we can receive two notifications; the first one doesn't
+                    have EXTRA_INCOMING_NUMBER, so just skip it */
+            if (incomingNumber == null)
+                return;
+
             Log.i(TAG, "Received call: " + incomingNumber);
 
             Settings settings = new Settings(context);
@@ -105,12 +108,24 @@ public class CallReceiver extends BroadcastReceiver {
             telephony.endCall();
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(context, context.getString(R.string.call_blocking_unsupported), Toast.LENGTH_LONG).show();
         }
 
         Settings settings = new Settings(context);
         if (settings.showNotifications()) {
+
+
+            if (Build.VERSION.SDK_INT >= 26) {
+                NotificationManager notificationManager =  (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationChannel channel = new NotificationChannel(
+                        "default", context.getString(R.string.app_name), NotificationManager.IMPORTANCE_DEFAULT
+                );
+                channel.setDescription(context.getString(R.string.receiver_notify_call_rejected));
+                notificationManager.createNotificationChannel(channel);
+            }
+
             Notification notify = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_launcher_small)
                     .setContentTitle(context.getString(R.string.receiver_notify_call_rejected))
                     .setContentText(number != null ? (number.name != null ? number.name : number.number) : context.getString(R.string.receiver_notify_private_number))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -120,6 +135,8 @@ public class CallReceiver extends BroadcastReceiver {
                     .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, BlacklistActivity.class), PendingIntent.FLAG_UPDATE_CURRENT))
                     .addPerson("tel:" + number)
                     .setGroup("rejected")
+                    .setChannelId("default")
+                    .setGroupSummary(true) /* swy: fix notifications not appearing on kitkat: https://stackoverflow.com/a/37070917/674685 */
                     .build();
 
             String tag = number != null ? number.number : "private";

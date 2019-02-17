@@ -30,5 +30,11 @@
     <!-- CallReceiver -->
     <string name="receiver_notify_call_rejected">Llamada rechazada</string>
     <string name="receiver_notify_private_number">Número privado</string>
+    <string name="call_blocking_unsupported">En esta versión de Android no se pueden bloquear llamadas</string>
+    <string name="blacklist_import">Importar lista</string>
+    <string name="blacklist_exported_to">Se ha exportado como</string>
+    <string name="blacklist_export">Exportar lista</string>
+    <string name="receiver_notify_unknown_caller">Número oculto</string>
+    <string name="blacklist_whitelist">Lista blanca</string>
 
 </resources>
