@@ -39,6 +39,7 @@ public class CallReceiver extends BroadcastReceiver {
     private static final String TAG = "NoPhoneSpam";
 
     private static final int NOTIFY_REJECTED = 0;
+    private static boolean AlreadyOnCall = false;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -93,6 +94,11 @@ public class CallReceiver extends BroadcastReceiver {
                 }
             }
         }
+
+        /* swy: keep track of any calls that may already be happening while someone else tries to call us;
+                we don't want to interrupt actual, running calls by mistake */
+             if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) AlreadyOnCall = true;
+        else if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE))    AlreadyOnCall = false;
     }
 
     protected void rejectCall(@NonNull Context context, Number number) {
@@ -105,7 +111,10 @@ public class CallReceiver extends BroadcastReceiver {
 
             ITelephony telephony = (ITelephony)m.invoke(tm);
 
-            telephony.endCall();
+            /* swy: only end calls if we are ringing after idling */
+            if (!AlreadyOnCall)
+                telephony.endCall();
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, context.getString(R.string.call_blocking_unsupported), Toast.LENGTH_LONG).show();
