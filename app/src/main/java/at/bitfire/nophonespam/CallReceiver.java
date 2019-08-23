@@ -24,6 +24,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
+import android.telecom.TelecomManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -102,22 +103,42 @@ public class CallReceiver extends BroadcastReceiver {
     }
 
     protected void rejectCall(@NonNull Context context, Number number) {
-        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        Class c = null;
-        try {
-            c = Class.forName(tm.getClass().getName());
-            Method m = c.getDeclaredMethod("getITelephony");
-            m.setAccessible(true);
 
-            ITelephony telephony = (ITelephony)m.invoke(tm);
+        if (Build.VERSION.SDK_INT >= 26) { 
+            /* larryth - API 26+ method */
+            /* should work since API 21+. Kept API 26 for consistancy with NotificationManager code below */
+                        
+            if(!AlreadyOnCall) {
 
-            /* swy: only end calls if we are ringing after idling */
-            if (!AlreadyOnCall)
-                telephony.endCall();
+                TelecomManager telecomManager = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
+            
+                try {
+                   telecomManager.getClass().getMethod("endCall").invoke(telecomManager);
+                   Log.d(TAG, "Invoked 'endCall' on TelecomManager");
+                } catch (Exception e) {
+                    Log.e(TAG, "Couldn't end call with TelecomManager. Check stdout for infos");
+                   e.printStackTrace();
+                }
+            }
+        } else {
+            /* larryth - old API method */
+            TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+            Class c = null;
+            try {
+                c = Class.forName(tm.getClass().getName());
+                Method m = c.getDeclaredMethod("getITelephony");
+                m.setAccessible(true);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(context, context.getString(R.string.call_blocking_unsupported), Toast.LENGTH_LONG).show();
+                ITelephony telephony = (ITelephony)m.invoke(tm);
+
+                /* swy: only end calls if we are ringing after idling */
+                if (!AlreadyOnCall)
+                    telephony.endCall();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(context, context.getString(R.string.call_blocking_unsupported), Toast.LENGTH_LONG).show();
+            }
         }
 
         Settings settings = new Settings(context);
