@@ -1,4 +1,3 @@
-
 # NoPhoneSpam
 
 Web site: https://gitlab.com/bitfireAT/NoPhoneSpam/
@@ -12,9 +11,6 @@ NoPhoneSpam is a simple app that allows you to
 
 NoPhoneSpam is not intended as a feature-rich call-spam fighting app,
 but as a replacement for Android's missing call blocking feature.
-
-If you have Android 6+, you don't need this app, because call blocking
-should be supported natively.
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
