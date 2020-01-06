@@ -119,17 +119,22 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)             != PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)       != PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)       != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)          != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS)     != PackageManager.PERMISSION_GRANTED)
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)          != PackageManager.PERMISSION_GRANTED)
 
             ActivityCompat.requestPermissions(this, new String[] {
                     Manifest.permission.CALL_PHONE,
                     Manifest.permission.READ_PHONE_STATE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_CALL_LOG,
-                    Manifest.permission.ANSWER_PHONE_CALLS
+                    Manifest.permission.READ_CALL_LOG
             }, 0);
+
+        if (Build.VERSION.SDK_INT >= 26)
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS)     != PackageManager.PERMISSION_GRANTED)
+
+                ActivityCompat.requestPermissions(this, new String[] {
+                        Manifest.permission.ANSWER_PHONE_CALLS
+                }, 0);
 
         getLoaderManager().initLoader(0, null, this);
     }
