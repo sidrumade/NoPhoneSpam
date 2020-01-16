@@ -8,6 +8,7 @@
 
 package at.bitfire.nophonespam;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -102,18 +103,18 @@ public class CallReceiver extends BroadcastReceiver {
         else if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE))    AlreadyOnCall = false;
     }
 
+    @SuppressLint("MissingPermission")
     protected void rejectCall(@NonNull Context context, Number number) {
 
-        if (Build.VERSION.SDK_INT >= 26) { 
-            /* larryth - API 26+ method */
-            /* should work since API 21+. Kept API 26 for consistancy with NotificationManager code below */
-                        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            /* larryth - API 28+ method */
+
             if(!AlreadyOnCall) {
 
                 TelecomManager telecomManager = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
             
                 try {
-                   telecomManager.getClass().getMethod("endCall").invoke(telecomManager);
+                    telecomManager.endCall();
                    Log.d(TAG, "Invoked 'endCall' on TelecomManager");
                 } catch (Exception e) {
                     Log.e(TAG, "Couldn't end call with TelecomManager. Check stdout for infos");
