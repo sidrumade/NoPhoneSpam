@@ -105,39 +105,33 @@ public class CallReceiver extends BroadcastReceiver {
 
     @SuppressLint("MissingPermission")
     protected void rejectCall(@NonNull Context context, Number number) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            /* larryth - API 28+ method */
-
-            if(!AlreadyOnCall) {
-
+        if (!AlreadyOnCall) {
+            boolean failed = false;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 TelecomManager telecomManager = (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
-            
+
                 try {
                     telecomManager.endCall();
-                   Log.d(TAG, "Invoked 'endCall' on TelecomManager");
+                    Log.d(TAG, "Invoked 'endCall' on TelecomManager");
                 } catch (Exception e) {
-                    Log.e(TAG, "Couldn't end call with TelecomManager. Check stdout for infos");
-                   e.printStackTrace();
+                    Log.e(TAG, "Couldn't end call with TelecomManager", e);
+                    failed = true;
+                }
+            } else {
+                TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                try {
+                    Method m = tm.getClass().getDeclaredMethod("getITelephony");
+                    m.setAccessible(true);
+
+                    ITelephony telephony = (ITelephony) m.invoke(tm);
+
+                    telephony.endCall();
+                } catch (Exception e) {
+                    Log.e(TAG, "Couldn't end call with TelephonyManager", e);
+                    failed = true;
                 }
             }
-        } else {
-            /* larryth - old API method */
-            TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-            Class c = null;
-            try {
-                c = Class.forName(tm.getClass().getName());
-                Method m = c.getDeclaredMethod("getITelephony");
-                m.setAccessible(true);
-
-                ITelephony telephony = (ITelephony)m.invoke(tm);
-
-                /* swy: only end calls if we are ringing after idling */
-                if (!AlreadyOnCall)
-                    telephony.endCall();
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (failed) {
                 Toast.makeText(context, context.getString(R.string.call_blocking_unsupported), Toast.LENGTH_LONG).show();
             }
         }
