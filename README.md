@@ -12,23 +12,28 @@ NoPhoneSpam is a simple app that allows you to
 NoPhoneSpam is not intended as a feature-rich call-spam fighting app,
 but as a replacement for Android's missing call blocking feature.
 
-[<img src="https://f-droid.org/badge/get-it-on.png"
+[<img src="doc/get-it-on-fdroid.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/app/at.bitfire.nophonespam)
 
 
-## Donations
+## Maintenance Status & Contributions
 
-[Donate using PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=ZT8F5NRCBDB2C&lc=AT&item_name=NoPhoneSpam&no_shipping=1&currency_code=EUR)
+If you want to contribute, please discuss it here:
+https://gitlab.com/bitfireAT/NoPhoneSpam/issues
 
-BitCoin: [1KSCy7RHztKuhW9fLLaUYqdwdC2iwbejZU](bitcoin:1KSCy7RHztKuhW9fLLaUYqdwdC2iwbejZU)
+Currently, there are no designated maintainers, but
+there are [some people with maintainer privileges](https://gitlab.com/bitfireAT/NoPhoneSpam/-/project_members).
 
-[![Flattr this!](https://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=bitfire&url=https://gitlab.com/bitfireAT/NoPhoneSpam/&title=NoPhoneSpam&category=software)
+__If you want maintain this project__ or if nobody replies to your
+issue and you want to do something yourself,
+please request the privileges from an [active maintainer](https://gitlab.com/bitfireAT/NoPhoneSpam/-/project_members).
 
 
 ## License 
 
-Copyright (C) bitfire web engineering (Ricki Hirner, Bernhard Stockmann).
+Copyright (C) [NoPhoneSpam contributors](https://gitlab.com/bitfireAT/NoPhoneSpam/-/graphs/master)
+(initial contributor: Ricki Hirner).
 
 This program comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome
 to redistribute it under the conditions of the [GNU GPL v3](LICENSE).
