@@ -129,7 +129,7 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
                     Manifest.permission.READ_CALL_LOG
             }, 0);
 
-        if (Build.VERSION.SDK_INT >= 26)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS)     != PackageManager.PERMISSION_GRANTED)
 
