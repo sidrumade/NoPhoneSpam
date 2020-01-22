@@ -43,7 +43,7 @@ public class Number {
 
     public static String wildcardsViewToDb(String number) {
         return number
-                .replaceAll("[^+#*0-9]", "")
+                .replaceAll("[^+#*%_0-9]", "")
                 .replace('*','%')
                 .replace('#','_');
     }
