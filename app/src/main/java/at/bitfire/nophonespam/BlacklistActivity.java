@@ -49,6 +49,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -117,27 +118,36 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
             }
         });
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)             != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)       != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)          != PackageManager.PERMISSION_GRANTED)
-
-            ActivityCompat.requestPermissions(this, new String[] {
-                    Manifest.permission.CALL_PHONE,
-                    Manifest.permission.READ_PHONE_STATE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.READ_CALL_LOG
-            }, 0);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
-
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS)     != PackageManager.PERMISSION_GRANTED)
-
-                ActivityCompat.requestPermissions(this, new String[] {
-                        Manifest.permission.ANSWER_PHONE_CALLS
-                }, 0);
+        requestPermissions();
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    protected void requestPermissions() {
+        List<String> requiredPermissions = new ArrayList<>();
+        requiredPermissions.add(Manifest.permission.CALL_PHONE);
+        requiredPermissions.add(Manifest.permission.READ_PHONE_STATE);
+        requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            requiredPermissions.add(Manifest.permission.READ_CALL_LOG);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            requiredPermissions.add(Manifest.permission.ANSWER_PHONE_CALLS);
+        }
+
+        List<String> missingPermissions = new ArrayList<>();
+
+        for (String permission : requiredPermissions) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                missingPermissions.add(permission);
+            }
+        }
+
+        if (!missingPermissions.isEmpty()) {
+            ActivityCompat.requestPermissions(this,
+                    missingPermissions.toArray(new String[0]), 0);
+        }
     }
 
     protected void deleteSelectedNumbers() {
@@ -173,21 +183,24 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         boolean ok = true;
-        for (int result : grantResults)
-            if (result != PackageManager.PERMISSION_GRANTED)
-                ok = false;
+        if (grantResults.length != 0) {
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    ok = false;
+                    break;
+                }
+            }
+        } else {
+            // treat cancellation as failure
+            ok = false;
+        }
 
         if (!ok)
             Snackbar.make(coordinatorLayout, R.string.blacklist_permissions_required, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.blacklist_request_permissions, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            ActivityCompat.requestPermissions(BlacklistActivity.this, new String[] {
-                                    Manifest.permission.CALL_PHONE,
-                                    Manifest.permission.READ_PHONE_STATE,
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.ANSWER_PHONE_CALLS
-                            }, 0);
+                            requestPermissions();
                         }
                     })
                     .show();
