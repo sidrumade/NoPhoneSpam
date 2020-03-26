@@ -12,7 +12,12 @@
         <item quantity="one">Called at %2$s</item>
         <item quantity="other">%1$d calls, last: %2$s</item>
     </plurals>
-    <string name="blacklist_whitelist">Whitelist</string>
+    <string name="all_calls">Allow All Calls</string>
+    <string name="allow_contacts">Allow Calls only from Contacts</string>
+    <string name="allow_list">Allow Calls only from this list</string>
+    <string name="block_list">Block all Calls from this list</string>
+    <string name="block_all">Block All Calls</string>
+
     <string name="blacklist_import">Import Blacklist</string>
     <string name="blacklist_export">Export Blacklist</string>
     <string name="blacklist_exported_to">Exported to</string>
@@ -32,6 +37,13 @@
     <string name="edit_changes_saved">Changes saved</string>
 
     <!-- CallReceiver -->
+
+    <string name="receiver_notify_no_call_allowed">All calls are being blocked</string>
+    <string name="receiver_notify_not_found_in_contacts">Number was not found in Contacts</string>
+    <string name="receiver_notify_number_was_not_in_list">Number was not found in allowed caller`s list.</string>
+    <string name="receiver_notify_number_was_in_list">Number was found in un-allowed caller`s list.</string>
+
+
     <string name="receiver_notify_call_rejected">Call rejected</string>
     <string name="receiver_notify_private_number">Private number</string>
     <string name="receiver_notify_unknown_caller">Unknown caller</string>

@@ -25,6 +25,18 @@ public class Number {
     public Long lastCall;
     public int timesCalled;
 
+    public Number(){}
+
+    public Number(String number){
+        this(number, null);
+    }
+
+
+    public Number(String number, String name){
+        this.number = number;
+        this.name = name;
+    }
+
 
     public static Number fromValues(ContentValues values) {
         Number number = new Number();
