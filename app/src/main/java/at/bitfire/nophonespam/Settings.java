@@ -11,12 +11,16 @@ package at.bitfire.nophonespam;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import at.bitfire.nophonespam.model.BlockingModes;
+
 public class Settings {
 
     private static final String
             PREF_BLOCK_HIDDEN_NUMBERS = "blockHiddenNumbers",
             PREF_NOTIFICATIONS = "notifications",
-            PREF_WHITELIST = "whitelist";
+            PREF_BLOCKING_MODE = "callBlockingMode";
+
+
 
     private final SharedPreferences pref;
 
@@ -32,8 +36,8 @@ public class Settings {
 
     public void blockHiddenNumbers(boolean block) {
         pref.edit()
-            .putBoolean(PREF_BLOCK_HIDDEN_NUMBERS, block)
-            .apply();
+                .putBoolean(PREF_BLOCK_HIDDEN_NUMBERS, block)
+                .apply();
     }
 
 
@@ -43,19 +47,20 @@ public class Settings {
 
     public void showNotifications(boolean show) {
         pref.edit()
-            .putBoolean(PREF_NOTIFICATIONS, show)
-            .apply();
-    }
-
-
-    public boolean whitelist() {
-        return pref.getBoolean(PREF_WHITELIST, false);
-    }
-
-    public void whitelist(boolean whitelist) {
-        pref.edit()
-                .putBoolean(PREF_WHITELIST, whitelist)
+                .putBoolean(PREF_NOTIFICATIONS, show)
                 .apply();
     }
+
+    public int getCallBlockingMode() {
+        return pref.getInt(PREF_BLOCKING_MODE, BlockingModes.ALLOW_ALL);
+    }
+
+    public void setCallBlockingMode(int value) {
+        pref.edit()
+                .putInt(PREF_BLOCKING_MODE, value)
+                .apply();
+    }
+
+
 
 }
