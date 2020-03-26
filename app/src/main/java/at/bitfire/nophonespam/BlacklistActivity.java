@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.Set;
 
 import at.bitfire.nophonespam.model.BlacklistFile;
+import at.bitfire.nophonespam.model.BlockingModes;
 import at.bitfire.nophonespam.model.DbHelper;
 import at.bitfire.nophonespam.model.Number;
 
@@ -128,6 +129,8 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
         requiredPermissions.add(Manifest.permission.CALL_PHONE);
         requiredPermissions.add(Manifest.permission.READ_PHONE_STATE);
         requiredPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        requiredPermissions.add(Manifest.permission.READ_CONTACTS);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             requiredPermissions.add(Manifest.permission.READ_CALL_LOG);
         }
@@ -216,7 +219,27 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.block_hidden_numbers).setChecked(settings.blockHiddenNumbers());
         menu.findItem(R.id.notifications).setChecked(settings.showNotifications());
-        menu.findItem(R.id.whitelist).setChecked(settings.whitelist());
+
+        int callBlockingMode = settings.getCallBlockingMode();
+        switch (callBlockingMode){
+            case BlockingModes.ALLOW_CONTACTS:
+                menu.findItem(R.id.allow_only_contacts).setChecked(true);
+                break;
+            case BlockingModes.ALLOW_ONLY_LIST_CALLS:
+                menu.findItem(R.id.allow_only_list).setChecked(true);
+                break;
+            case BlockingModes.BLOCK_LIST:
+                menu.findItem(R.id.block_list).setChecked(true);
+                break;
+            case BlockingModes.BLOCK_ALL:
+                menu.findItem(R.id.block_all).setChecked(true);
+                break;
+            case BlockingModes.ALLOW_ALL:
+            default:
+                menu.findItem(R.id.allow_all).setChecked(true);
+                break;
+        }
+
         return true;
     }
 
@@ -228,9 +251,40 @@ public class BlacklistActivity extends AppCompatActivity implements LoaderManage
         settings.showNotifications(!item.isChecked());
     }
 
-    public void onWhitelist(MenuItem item) {
-        settings.whitelist(!item.isChecked());
+
+    public boolean selectCallBlockingMode(MenuItem item) {
+
+        boolean toggleCheckState = true;
+
+        switch (item.getItemId()) {
+            case R.id.allow_all:
+                settings.setCallBlockingMode(BlockingModes.ALLOW_ALL);
+                break;
+            case R.id.allow_only_contacts:
+                settings.setCallBlockingMode(BlockingModes.ALLOW_CONTACTS);
+                break;
+            case R.id.allow_only_list:
+                settings.setCallBlockingMode(BlockingModes.ALLOW_ONLY_LIST_CALLS);
+                break;
+            case R.id.block_list:
+                settings.setCallBlockingMode(BlockingModes.BLOCK_LIST);
+                break;
+            case R.id.block_all:
+                settings.setCallBlockingMode(BlockingModes.BLOCK_ALL);
+                break;
+            default:
+                toggleCheckState = false;
+        }
+
+        if(toggleCheckState){
+
+            if (item.isChecked()) item.setChecked(false);
+            else item.setChecked(true);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
+
 
     public void onImportBlacklist(MenuItem item) {
         showDialog(DIALOG_LOAD_FILE);
