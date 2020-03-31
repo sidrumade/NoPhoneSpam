@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoPhoneSpam</string>
+
+    <!-- BlacklistActivity -->
+    <string name="blacklist_block_hidden_numbers">Bloquear números ocultos</string>
+    <string name="blacklist_show_notifications">Mostrar notificações</string>
+    <string name="blacklist_about">Sobre o NoPhoneSpam</string>
+    <string name="blacklist_permissions_required">NoPhoneSpam não possui as permissões para funcionar.</string>
+    <string name="blacklist_request_permissions">Solicitar permissões</string>
+    <plurals name="blacklist_call_details">
+        <item quantity="one">Ligou em %2$s</item>
+        <item quantity="other">%1$d chamadas, última: %2$s</item>
+    </plurals>
+    <string name="all_calls">Permitir todas as chamadas</string>
+    <string name="allow_contacts">Permitir chamadas apenas dos seus contatos</string>
+    <string name="allow_list">Permitir chamadas apenas desta lista</string>
+    <string name="block_list">Bloquear todas as chamadas desta lista</string>
+    <string name="block_all">Bloquear todas as chamadas</string>
+
+    <string name="blacklist_import">Importar lista negra</string>
+    <string name="blacklist_export">Exportar lista negra</string>
+    <string name="blacklist_exported_to">Exportada para</string>
+
+    <!-- EditActivity -->
+    <string name="edit_add_number">Adicionar número</string>
+    <string name="edit_edit_number">Editar número</string>
+    <string name="edit_save">Salvar</string>
+    <string name="edit_cancel">Cancelar</string>
+    <string name="edit_delete">Excluir</string>
+    <string name="edit_name">Nome</string>
+    <string name="edit_name_hint">Spammer irrante</string>
+    <string name="edit_number">Número</string>
+    <string name="edit_number_hint">+55-11-9999-1234</string>
+    <string name="edit_number_hints">Insira o número no formato +PAÍS-DDD-NÚMERO (como o Android mostraria no seu discador). Use \"*\" como um curinga para zero ou mais dígitos e \"#\" para exatamente um dígito.</string>
+    <string name="edit_must_not_be_empty">Não pode estar vazio</string>
+    <string name="edit_changes_saved">Alterações salvas</string>
+
+    <!-- CallReceiver -->
+
+    <string name="receiver_notify_no_call_allowed">Todas as chamadas estão sendo bloqueadas</string>
+    <string name="receiver_notify_not_found_in_contacts">Número não encontrado nos contatos</string>
+    <string name="receiver_notify_number_was_not_in_list">Número não encontrado na lista de chamador permitido.</string>
+    <string name="receiver_notify_number_was_in_list">Número não encontrado na lista de chamado proibido.</string>
+
+
+    <string name="receiver_notify_call_rejected">Chamada rejeitada</string>
+    <string name="receiver_notify_private_number">Número privado</string>
+    <string name="receiver_notify_unknown_caller">Chamador desconhecido</string>
+    <string name="call_blocking_unsupported">Não é possível bloquear chamadas nesta versão do Android</string>
+
+</resources>
