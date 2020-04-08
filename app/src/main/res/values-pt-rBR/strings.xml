@@ -29,7 +29,7 @@
     <string name="edit_cancel">Cancelar</string>
     <string name="edit_delete">Excluir</string>
     <string name="edit_name">Nome</string>
-    <string name="edit_name_hint">Spammer irrante</string>
+    <string name="edit_name_hint">Spammer irritante</string>
     <string name="edit_number">Número</string>
     <string name="edit_number_hint">+55-11-9999-1234</string>
     <string name="edit_number_hints">Insira o número no formato +PAÍS-DDD-NÚMERO (como o Android mostraria no seu discador). Use \"*\" como um curinga para zero ou mais dígitos e \"#\" para exatamente um dígito.</string>
