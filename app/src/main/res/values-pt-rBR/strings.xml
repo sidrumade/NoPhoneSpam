@@ -13,9 +13,9 @@
         <item quantity="other">%1$d chamadas, última: %2$s</item>
     </plurals>
     <string name="all_calls">Permitir todas as chamadas</string>
-    <string name="allow_contacts">Permitir chamadas apenas dos seus contatos</string>
-    <string name="allow_list">Permitir chamadas apenas desta lista</string>
-    <string name="block_list">Bloquear todas as chamadas desta lista</string>
+    <string name="allow_contacts">Permitir apenas dos contatos</string>
+    <string name="allow_list">Permitir apenas desta lista</string>
+    <string name="block_list">Bloquear todas desta lista</string>
     <string name="block_all">Bloquear todas as chamadas</string>
 
     <string name="blacklist_import">Importar lista negra</string>
@@ -41,7 +41,7 @@
     <string name="receiver_notify_no_call_allowed">Todas as chamadas estão sendo bloqueadas</string>
     <string name="receiver_notify_not_found_in_contacts">Número não encontrado nos contatos</string>
     <string name="receiver_notify_number_was_not_in_list">Número não encontrado na lista de chamador permitido.</string>
-    <string name="receiver_notify_number_was_in_list">Número não encontrado na lista de chamado proibido.</string>
+    <string name="receiver_notify_number_was_in_list">Número encontrado na lista de chamador proibido.</string>
 
 
     <string name="receiver_notify_call_rejected">Chamada rejeitada</string>
