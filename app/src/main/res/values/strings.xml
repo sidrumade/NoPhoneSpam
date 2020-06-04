@@ -40,8 +40,8 @@
 
     <string name="receiver_notify_no_call_allowed">All calls are being blocked</string>
     <string name="receiver_notify_not_found_in_contacts">Number was not found in Contacts</string>
-    <string name="receiver_notify_number_was_not_in_list">Number was not found in allowed caller`s list.</string>
-    <string name="receiver_notify_number_was_in_list">Number was found in un-allowed caller`s list.</string>
+    <string name="receiver_notify_number_was_not_in_list">Number was not found in allowed caller\'s list</string>
+    <string name="receiver_notify_number_was_in_list">Number was found in un-allowed caller\'s list</string>
 
 
     <string name="receiver_notify_call_rejected">Call rejected</string>

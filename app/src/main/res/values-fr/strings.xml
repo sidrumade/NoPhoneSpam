@@ -27,11 +27,22 @@
     <string name="edit_number">Numéro</string>
     <string name="edit_number_hint">+33-1-23-45-67-89</string>
     <string name="edit_number_hints">Entrez le numéro dans le format +CODE-PAYS. Utilisez \"*\" comme joker pour zéro ou plus chiffres, et \"#\" pour exactement un chiffre.</string>
-    <string name="edit_must_not_be_empty">ne doit pas être vide</string>
+    <string name="edit_must_not_be_empty">Ne doit pas être vide</string>
     <string name="edit_changes_saved">Changements enregistrés</string>
 
     <!-- CallReceiver -->
     <string name="receiver_notify_call_rejected">Appel rejeté</string>
     <string name="receiver_notify_private_number">Numéro privé</string>
+    <string name="all_calls">Autoriser tous les appels</string>
+    <string name="allow_contacts">Autoriser les appels des Contacts uniquement</string>
+    <string name="allow_list">Autoriser les appels de cette liste uniquement</string>
+    <string name="block_list">Bloquer tous les appels de cette liste</string>
+    <string name="block_all">Bloquer tous les appels</string>
+    <string name="receiver_notify_no_call_allowed">Tous les appels vont être bloqués</string>
+    <string name="receiver_notify_not_found_in_contacts">Numéro non trouvé dans les Contacts</string>
+    <string name="receiver_notify_number_was_not_in_list">Numéro non trouvé dans la liste des appels autorisés</string>
+    <string name="receiver_notify_number_was_in_list">Numéro trouvé dans la liste des appels bloqués</string>
+    <string name="receiver_notify_unknown_caller">Numéro inconnu</string>
+    <string name="call_blocking_unsupported">Ne peux pas bloquer les appels sur cette version d\'Android</string>
 
 </resources>
