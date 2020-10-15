@@ -51,8 +51,9 @@ public class Settings {
                 .apply();
     }
 
+
     public int getCallBlockingMode() {
-        return pref.getInt(PREF_BLOCKING_MODE, BlockingModes.ALLOW_ALL);
+        return pref.getInt(PREF_BLOCKING_MODE, BlockingModes.BLOCK_LIST);
     }
 
     public void setCallBlockingMode(int value) {
