@@ -67,7 +67,7 @@ public class CallReceiver extends BroadcastReceiver {
             } else if (extraState.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
                 Log.d(TAG, "Handling ring");
                 Settings settings = new Settings(context);
-                if (settings.getCallBlockingMode() != BlockingModes.ALLOW_ALL) {
+                if (settings.blockHiddenNumbers() || settings.getCallBlockingMode() != BlockingModes.ALLOW_ALL) {
                     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
                     /* swy: we can receive two notifications; the first one doesn't
